@@ -4,15 +4,14 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                checkout scm
+                git 'https://github.com/kilaruu/banking-application.git'
             }
         }
 
         stage('Build and Test') {
             steps {
                 script {
-                    // Assuming Maven is used for building and testing
-                    sh 'mvn clean verify'
+                    sh 'mvn clean install'
                 }
             }
         }
@@ -20,7 +19,6 @@ pipeline {
         stage('Deploy to Tomcat') {
             steps {
                 script {
-                    // Assuming Tomcat is running on localhost:8080
                     sh 'cp target/your-app.war $CATALINA_HOME/webapps/'
                     echo 'Application deployed successfully!'
                 }
